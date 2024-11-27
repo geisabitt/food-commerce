@@ -1,0 +1,120 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Product {
+    id          String      @id @default(uuid())
+    snack       String
+    name        String
+    description String
+    price       Decimal
+    image       String
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+    categoryId  String
+    category    Category    @relation(fields: [categoryId], references: [id])
+    orderItems  OrderItem[]
+}
+
+model Category {
+    id          String    @id @default(uuid())
+    name        String    @unique
+    description String?
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    products    Product[]
+}
+
+enum UserRole {
+    ADMIN
+    CUSTOMER
+}
+
+model User {
+    id           String   @id @default(uuid())
+    fullName     String
+    email        String   @unique
+    password     String
+    mobile       String
+    document     String
+    zipCode      String
+    street       String
+    number       String
+    complement   String?
+    neighborhood String
+    city         String
+    state        String
+    role         UserRole @default(CUSTOMER)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    orders       Order[]
+}
+
+enum OrderStatus {
+    PENDING
+    PAID
+    CANCELED
+}
+
+model Order {
+    id             String        @id @default(uuid())
+    status         OrderStatus   @default(PENDING)
+    total          Decimal
+    transactionId  String?
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    customerId     String
+    customer       User          @relation(fields: [customerId], references: [id])
+    orderItems     OrderItem[]
+    promotions     Promotion[]   @relation("OrderPromotions")
+    shippingRate   ShippingRate?
+    shippingRateId String?
+}
+
+model OrderItem {
+    id        String   @id @default(uuid())
+    quantity  String
+    subTotal  Decimal
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    orderId   String
+    order     Order    @relation(fields: [orderId], references: [id])
+    productId String
+    product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Promotion {
+    id          String   @id @default(uuid())
+    name        String
+    description String?
+    discount    Float
+    condition   String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    active      Boolean  @default(true)
+    orders      Order[]  @relation("OrderPromotions")
+}
+
+model ShippingRegion {
+    id            String         @id @default(uuid())
+    name          String
+    area          String
+    price         Decimal
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    shippingRates ShippingRate[]
+}
+
+model ShippingRate {
+    id       String         @id @default(uuid())
+    regionId String
+    region   ShippingRegion @relation(fields: [regionId], references: [id])
+    orderId  String         @unique
+    order    Order          @relation(fields: [orderId], references: [id])
+    price    Decimal
+}
