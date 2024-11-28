@@ -9,11 +9,10 @@ datasource db {
 
 model Product {
     id          String      @id @default(uuid())
-    snack       String
     name        String
     description String
     price       Decimal
-    image       String
+    image       String?
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
     categoryId  String

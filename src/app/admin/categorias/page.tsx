@@ -58,7 +58,6 @@ export default function Page() {
         alert("Erro ao atualizar a categoria");
       }
     } else {
-      // Criar nova categoria
       const res = await fetch("/api/categories", {
         method: "POST",
         body: JSON.stringify({ name, description }),
@@ -85,11 +84,11 @@ export default function Page() {
       <form onSubmit={handleSubmit} className="bg-gray-100 p-6 rounded-lg shadow-md mb-6">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">Nome da Categoria:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required className="block w-full  text-gray-700  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">Descrição:</label>
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="block w-full  text-gray-700  px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           {editingCategoryId ? "Atualizar Categoria" : "Criar Categoria"}
