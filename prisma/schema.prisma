@@ -117,3 +117,19 @@ model ShippingRate {
     order    Order          @relation(fields: [orderId], references: [id])
     price    Decimal
 }
+
+model Additional {
+    id                String          @id @default(uuid())
+    name              String
+    price             Float           @default(0)
+    isActive          Boolean         @default(true)
+    additionalGroupId String
+    additionalGroup   AdditionalGroup @relation(fields: [additionalGroupId], references: [id])
+}
+
+model AdditionalGroup {
+    id         String       @id @default(uuid())
+    name       String
+    maxSelect  Int
+    additional Additional[]
+}

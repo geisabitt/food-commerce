@@ -1,5 +1,9 @@
 import { Prisma } from "@prisma/client";
 
+export type AdditionalGroupWithCategory = Prisma.AdditionalGroupGetPayload<{
+  include: { additional: true };
+}>;
+
 
 export type ProductWithCategory = Prisma.ProductGetPayload<{
     include: { category: true };
