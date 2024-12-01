@@ -9,11 +9,10 @@ datasource db {
 
 model Product {
     id          String      @id @default(uuid())
-    snack       String
     name        String
     description String
     price       Decimal
-    image       String
+    image       String?
     createdAt   DateTime    @default(now())
     updatedAt   DateTime    @updatedAt
     categoryId  String
@@ -117,4 +116,20 @@ model ShippingRate {
     orderId  String         @unique
     order    Order          @relation(fields: [orderId], references: [id])
     price    Decimal
+}
+
+model Additional {
+    id                String          @id @default(uuid())
+    name              String
+    price             Float           @default(0)
+    isActive          Boolean         @default(true)
+    additionalGroupId String
+    additionalGroup   AdditionalGroup @relation(fields: [additionalGroupId], references: [id])
+}
+
+model AdditionalGroup {
+    id         String       @id @default(uuid())
+    name       String
+    maxSelect  Int
+    additional Additional[]
 }
