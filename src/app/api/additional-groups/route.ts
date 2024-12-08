@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { handleError } from "@/utils/error-handle";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -11,8 +12,9 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(additionalGroup, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error, message: "Erro ao criar grupo." }, { status: 400 });
+    return handleError(error, 400);
   }
+
 }
 
 export async function GET() {
@@ -23,7 +25,7 @@ export async function GET() {
 
     return NextResponse.json(additionalGroups, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error, message: "Erro ao buscar grupos." }, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -38,7 +40,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(updatedGroup, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error, message: "Erro ao atualizar grupo." }, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -50,6 +52,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ message: "Grupo deletado com sucesso." }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error, message: "Erro ao deletar grupo." }, { status: 400 });
+    return handleError(error, 400);
   }
 }

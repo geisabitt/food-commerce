@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { handleError } from "@/utils/error-handle";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -11,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(additional, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: "Erro ao criar adicional." , error}, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -23,7 +24,7 @@ export async function GET() {
 
     return NextResponse.json(additionals, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Erro ao buscar adicional." , error}, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -38,7 +39,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(updatedAdditional, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Erro ao atualizar adicional." , error}, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -50,6 +51,7 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json({ message: "Adicional deletado com sucesso." }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Erro ao deletar adicional." , error}, { status: 400 });
+    return handleError(error, 400);
   }
+
 }

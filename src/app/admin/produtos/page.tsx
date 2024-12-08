@@ -162,9 +162,9 @@ export default function ProductPage() {
           <li key={product.id} className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
             <div>
               <h2 className="text-lg font-semibold text-primary">{product.name}</h2>
-              <p className="text-sm text-accent">Preço: R$ {product.price instanceof Decimal ? product.price.toNumber().toFixed(2) : Number(product.price).toFixed(2)}</p>
-              <p className="text-sm text-accent">{product.description || "Sem descrição"}</p>
-              <p className="text-sm text-accent">Categoria: {categories.find((cat) => cat.id === product.categoryId)?.name || "Sem categoria"}</p>
+              <p className="text-sm text-gray-600">Preço: R$ {product.price instanceof Decimal ? product.price.toNumber().toFixed(2) : Number(product.price).toFixed(2)}</p>
+              <p className="text-sm text-gray-600">{product.description || "Sem descrição"}</p>
+              <p className="text-sm text-gray-600">Categoria: {categories.find((cat) => cat.id === product.categoryId)?.name || "Sem categoria"}</p>
             </div>
             <div className="flex space-x-2">
               <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => handleEdit(product)}>

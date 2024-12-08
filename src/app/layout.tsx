@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "./globals.css";
+import CustomSidebar from "@/components/custom-sidebar";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -25,7 +26,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>{children}</body>
+      <body className="flex">
+        <div>
+          <CustomSidebar />
+        </div>
+        <div className="lg:ml-20 p-4 w-full">{children}</div>
+      </body>
     </html>
   );
 }

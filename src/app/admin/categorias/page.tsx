@@ -114,7 +114,7 @@ export default function Page() {
             <li key={category.id} className="p-4 bg-white rounded-lg shadow-md flex justify-between items-center">
               <div>
                 <h2 className="text-lg font-semibold text-primary">{category.name}</h2>
-                <p className="text-sm text-accent">{category.description || "Sem descrição"}</p>
+                <p className="text-sm text-gray-700">{category.description || "Sem descrição"}</p>
               </div>
               <div className="flex space-x-2">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={() => handleEdit(category.id, category.name, category.description || "")}>

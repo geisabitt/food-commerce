@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { handleError } from "@/utils/error-handle";
 
-// Criar um novo produto
 export async function POST(req: NextRequest) {
   const { name, price, description, categoryId } = await req.json();
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(product, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ message: error}, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -29,7 +29,7 @@ export async function GET() {
     });
     return NextResponse.json(products, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json(product, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return handleError(error, 400);
   }
 }
 
@@ -64,6 +64,6 @@ export async function DELETE(req: NextRequest) {
     });
     return NextResponse.json({ message: "Produto deletado com sucesso!" }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: error }, { status: 400 });
+    return handleError(error, 400);
   }
 }

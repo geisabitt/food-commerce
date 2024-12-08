@@ -38,6 +38,7 @@ export default function AdditionalPage() {
       setAdditionalGroups([...additionalGroups, { ...newGroup, additional: [] }]);
       setGroupName("");
       setMaxSelect(1);
+      alert("Grupo de adicionais criado com sucesso!");
     } else {
       alert("Erro ao criar grupo de adicionais");
     }
@@ -57,6 +58,7 @@ export default function AdditionalPage() {
       setAdditionalGroups((prev) => prev.map((group) => (group.id === activeGroupId ? { ...group, additional: [...group.additional, newAddition] } : group)));
       setAdditionName("");
       setAdditionPrice(0);
+      alert("Adicional criado com sucesso!");
     } else {
       alert("Erro ao criar adicional");
     }
@@ -217,7 +219,7 @@ export default function AdditionalPage() {
               <ul className="flex flex-col gap-2">
                 {group.additional.map((addition) => (
                   <li className="flex justify-between" key={addition.id}>
-                    <p className="text-sm text-accent w-[50%]">
+                    <p className="text-sm text-gray-600 w-[50%]">
                       {addition.name} - {addition.price <= 0 ? "" : `R$ ${addition.price.toFixed(2)}`} {addition.isActive ? "(Ativo)" : "(Inativo)"}
                     </p>
                     <div>
